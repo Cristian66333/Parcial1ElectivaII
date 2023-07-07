@@ -27,6 +27,7 @@ router.post('/',(req,res)=>{
     console.log(req.body)
     const {text, year, fechaInicio, fechaFin } = req.body
     
+    
     console.log(text+year+fechaInicio+fechaFin)
 })
 

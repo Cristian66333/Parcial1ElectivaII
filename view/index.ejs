@@ -11,8 +11,10 @@
     <h1>Gestión de peliculas Marvel Universe</h1>
     <h6><%=data[0].movie_id%></h6>
 
-    Filtrar por texto<input type="text" id="filtro1" name="filtro1" onchange="sendFilter()">  Filtrar por año<input type="number" id="filtroAnio" name="filtroAnio" onchange="sendFilter()"><br>
-    Fecha inicio<input type="date" id="fechaInicio" name="fechaInicio" onchange="sendFilter()"> Fecha fin <input type="date" id="fechaFin" name="fechaFin" onchange="sendFilter()">
+    <div class="col-sm-12">por texto<input type="text" id="filtro1" name="filtro1" onchange="sendFilter()"> </div> 
+    <div class="col-sm-12">Filtrar por año<input type="number" id="filtroAnio" name="filtroAnio" onchange="sendFilter()"></div> <br>
+    <div class="col-sm-12">Fecha inicio<input type="date" id="fechaInicio" name="fechaInicio" onchange="sendFilter()"></div>
+    <div class="col-sm-12"> Fecha fin <input type="date" id="fechaFin" name="fechaFin" onchange="sendFilter()"></div>
     <button class="btn btn-primary" onclick="borrarFiltros()">Borrar filtros</button>
     <script>
       function borrarFiltros(){
