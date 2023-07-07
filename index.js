@@ -7,16 +7,24 @@ const app = express()
 
 app.use(express.static('public'))
 
+app.use(express.urlencoded({extended:false}))
+
+
+
 
 //settings
 
 app.set('PORT',process.env.PORT||3000)
+app.set('views', path.join(__dirname,'/view'))
+app.set('view engine','ejs')
 
 app.listen(app.get('PORT'), ()=>console.log(`Server listen ${app.get('PORT')}`))
 console.log(__dirname)
+app.use(express.json());
 
-app.get('/', (req,res)=>{
-    res.sendFile(path.join(__dirname,'/view/index.html'))
-    
-})
+
+app.use(express.urlencoded({ extended: true }));
+
+//middlewares
+app.use('/',require('./routes/index'))
 

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%-include('./templates/header.ejs')%>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Gestión de peliculas Marvel Universe</h1>
+    <h6><%=data[0].movie_id%></h6>
+
+    Filtrar por texto<input type="text" id="filtro1" name="filtro1" onchange="sendFilter()">  Filtrar por año<input type="number" id="filtroAnio" name="filtroAnio" onchange="sendFilter()"><br>
+    Fecha inicio<input type="date" id="fechaInicio" name="fechaInicio" onchange="sendFilter()"> Fecha fin <input type="date" id="fechaFin" name="fechaFin" onchange="sendFilter()">
+    <button class="btn btn-primary" onclick="borrarFiltros()">Borrar filtros</button>
+    <script>
+      function borrarFiltros(){
+        let text = document.getElementById('filtro1')
+        let year = document.getElementById('filtroAnio')
+        let fechaInicio = document.getElementById('fechaInicio')
+        let fechaFin = document.getElementById('fechaFin')
+        text.value = ""
+        year.value = ""
+        fechaInicio.value = ""
+        fechaFin.value = ""
+      }
+
+      function sendFilter(){
+        let text = document.getElementById('filtro1')
+        let year = document.getElementById('filtroAnio')
+        let fechaInicio = document.getElementById('fechaInicio')
+        let fechaFin = document.getElementById('fechaFin')
+        let data = {text:text.value,year:year.value,fechaInicio:fechaInicio.value,fechaFin:fechaFin.value}
+        fetch('/',{method:'POST',headers: {
+              "Content-Type": "application/json"
+        },body:JSON.stringify(data)})
+        
+      }
+    </script>
+    <%if(data.length> 0){%>
+      <table class="table" id="tabla">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>titulo</th>
+            <th>fase</th>
+            <th>categoría</th>
+            <th>lanzamiento</th>
+            <th>duración</th>
+            <th>nombre de clasificación</th>
+            <th>formato disco</th>
+            <th>numero discos</th>
+            <th>formato de vista</th>
+            <th>relación de aspecto</th>
+            <th>estado</th>
+            <th>fecha lanzamiento</th>
+            <th>inversion</th>
+            <th>ganancias</th>
+            <th>fecha</th>
+            <th>eliminar</th>
+          </tr>
+        </thead>
+        <tbody id="tbody">
+          <% for(const value of data){%>
+            <tr>
+              <td><%=value.movie_id%></td>
+              <td><%=value.title%></td>
+              <td><%=value.phase%></td>
+              <td><%=value.category_name%></td>
+              <td><%=value.release_year%></td>
+              <td><%=value.running_time%> minutos</td>
+              <td><%=value.rating_name%></td>
+              <td><%=value.disc_format_name%></td>
+              <td><%=value.number_discs%></td>
+              <td><%=value.viewing_format_name%></td>
+              <td><%=value.aspect_ratio_name%></td>
+              <td><%=value.status%></td>
+              <td><%=value.release_date%></td>
+              <td><%=value.budget%></td>
+              <td><%=value.gross%></td>
+              <td><%=value.time_stamp%></td>
+              <td><button class="btn-primary" onclick="deleteRegister('<%=value.movie_id%>')">Eliminar</button></td>
+            </tr>
+          <%}%>
+        </tbody>
+      </table>
+      <script>
+        function deleteRegister(id){
+          
+          fetch('/remove',{method:'POST',headers: {
+              "Content-Type": "application/json"
+        },body:JSON.stringify({'id':id})})
+          location.reload()
+
+        }
+      </script>
+      si hay <%=data.size%> datos
+
+        <%}else{%>
+          <h4>No hay registros</h4>
+          <%}%>
+          <br>
+
+
+  </div>
+
+
+
+
+  <script src="js/bootstrap.min.js"></script>
+
+</body>
+
+</html>
